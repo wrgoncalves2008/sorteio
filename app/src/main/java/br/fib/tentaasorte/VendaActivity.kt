@@ -10,18 +10,19 @@ class VendaActivity : AppCompatActivity() {
 
     var timeselecionado = ""
 
+    var listadetimes = arrayOf("Flamengo","Santos","Palmeiras","Grêmio","Athletico-PR","São Paulo","Internacional","Corinthians",
+        "Fortaleza","Goiás","Bahia","Vasco","Atlético-MG","Fluminense","Botafogo","Ceará","Cruzeiro",
+        "CSA","Chapecoense","Avaí")
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_venda)
 
-        var listadetimes = arrayOf("Flamengo","Santos","Palmeiras","Grêmio","Athletico-PR","São Paulo","Internacional","Corinthians",
-                                   "Fortaleza","Goiás","Bahia","Vasco","Atlético-MG","Fluminense","Botafogo","Ceará","Cruzeiro",
-                                   "CSA","Chapecoense","Avaí")
-
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listadetimes)
         lsttimes.adapter = adapter
 
-        lsttimes.setOnItemClickListener { parent, view, position, id ->
+        lsttimes.setOnItemClickListener { _, _, position, _ ->
             timeselecionado = listadetimes.get(position)
         }
 
@@ -35,9 +36,10 @@ class VendaActivity : AppCompatActivity() {
             }
             else
             {
-                Sorteio.getInstance().registrarVenda( txtNomeCliente.text.toString() , timeselecionado )
-                Toast.makeText( this, "Venda registrar para o cliente " + txtNomeCliente.text.toString() + ", time escolhido foi " + timeselecionado, Toast.LENGTH_LONG ).show()
+                Sorteio.registrarVenda( txtNomeCliente.text.toString() , timeselecionado )
+                Toast.makeText( this, "Venda registrada para o cliente " + txtNomeCliente.text.toString() + ", time escolhido foi " + timeselecionado, Toast.LENGTH_LONG ).show()
 
+                finish()
             }
         }
 
