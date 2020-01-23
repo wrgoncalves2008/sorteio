@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         lstclientes.adapter = adapter
 
         lstclientes.setOnItemClickListener { parent, view, position, id ->
-            txttimeselecionado.setText( "Time selecionado: " + Sorteio.getCliente(position).getTime() )
+            txttimeselecionado.setText( "Time selecionado: " + Sorteio.getCliente(position)?.getTime() )
         }
 
         btnvender.setOnClickListener{

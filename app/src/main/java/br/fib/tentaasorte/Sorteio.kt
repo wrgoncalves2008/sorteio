@@ -1,21 +1,14 @@
 package br.fib.tentaasorte
 
-import java.lang.reflect.Array
-
 object Sorteio {
 
     val clientes: ArrayList<Cliente>
 
     init {
         clientes = ArrayList<Cliente>()
-
-//            this.clientes.add( new Cliente("Will", "São Paulo"));
-//            this.clientes.add( new Cliente("Rosana", "Palmeiras"));
-//            this.clientes.add( new Cliente("Zé", "Santos"));
-
     }
 
-    fun ListarClientes(): ArrayList<Cliente>? {
+    fun ListarClientes(): ArrayList<Cliente> {
         return clientes
     }
 
@@ -27,8 +20,15 @@ object Sorteio {
         return this.clientes.get(id)
     }
 
-    fun registrarVenda(nome: String?, time: String?) {
-        clientes.add(Cliente(nome, time))
+    fun registrarVenda(nome: String, time: String) {
+        clientes.add( Cliente( nome, time ))
+    }
+
+    fun timeJaSelecionado( time: String ): Boolean {
+
+        var arr = timesEscolhidos()
+
+        return arr.contains(time)
     }
 
     fun timesEscolhidos(): ArrayList<String> {
@@ -36,12 +36,9 @@ object Sorteio {
         val arr = ArrayList<String>()
 
         for (i in this.clientes.indices){
-            arr.add( clientes.get(i).nome )
+            arr.add( clientes.get(i).getTime() )
         }
 
         return arr
     }
-
-    @override
-    fun
 }

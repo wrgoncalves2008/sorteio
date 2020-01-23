@@ -2,28 +2,46 @@ package br.fib.tentaasorte
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_venda.*
 
 class VendaActivity : AppCompatActivity() {
 
-    var timeselecionado = ""
+    var timeselecionado: String = ""
+    var timesDisponiveis = ArrayList<String>()
 
     var listadetimes = arrayOf("Flamengo","Santos","Palmeiras","Grêmio","Athletico-PR","São Paulo","Internacional","Corinthians",
         "Fortaleza","Goiás","Bahia","Vasco","Atlético-MG","Fluminense","Botafogo","Ceará","Cruzeiro",
         "CSA","Chapecoense","Avaí")
+
+    fun verificarTimesDisponiveis() {
+
+        for (time in listadetimes){
+            if ( !Sorteio.timeJaSelecionado( time ) )
+            {
+                timesDisponiveis.add(time)
+            }
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_venda)
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listadetimes)
+        verificarTimesDisponiveis()
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, timesDisponiveis)
         lsttimes.adapter = adapter
 
+        txtTimesDisponiveis.setText("Times restantes: " + timesDisponiveis.size.toString())
+        txtTimeSelecionado.setText("Time Selecionado: Nenhum")
+
         lsttimes.setOnItemClickListener { _, _, position, _ ->
-            timeselecionado = listadetimes.get(position)
+            timeselecionado = timesDisponiveis.get(position)
+            txtTimeSelecionado.setText("Time Selecionado: " + timeselecionado)
         }
 
         btnregistrar.setOnClickListener{
@@ -37,10 +55,14 @@ class VendaActivity : AppCompatActivity() {
             else
             {
                 Sorteio.registrarVenda( txtNomeCliente.text.toString() , timeselecionado )
-                Toast.makeText( this, "Venda registrada para o cliente " + txtNomeCliente.text.toString() + ", time escolhido foi " + timeselecionado, Toast.LENGTH_LONG ).show()
+                Toast.makeText( this, "Venda registrada para o cliente " + txtNomeCliente.text.toString() + ", time escolhido foi " + timeselecionado, Toast.LENGTH_SHORT ).show()
 
                 finish()
             }
+        }
+
+        btncancelar.setOnClickListener{
+            finish()
         }
 
     }

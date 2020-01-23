@@ -38,6 +38,14 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/txtTimeSelecionado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Time Selecionado:"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <ListView
@@ -49,6 +57,16 @@
 
         </ListView>
 
+
+        <TextView
+            android:id="@+id/txtTimesDisponiveis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="@dimen/cardview_compat_inset_shadow"
+            android:gravity="center"
+            android:text="Times restantes: 0000"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
