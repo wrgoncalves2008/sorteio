@@ -2,7 +2,7 @@ package br.fib.tentaasorte
 
 object Sorteio {
 
-    var listadetimes = arrayOf("Flamengo","Santos","Palmeiras","Grêmio","Athletico-PR","São Paulo","Internacional","Corinthians",
+    private var listadetimes = arrayOf("Flamengo","Santos","Palmeiras","Grêmio","Athletico-PR","São Paulo","Internacional","Corinthians",
         "Fortaleza","Goiás","Bahia","Vasco","Atlético-MG","Fluminense","Botafogo","Ceará","Cruzeiro",
         "CSA","Chapecoense","Avaí")
 
@@ -66,5 +66,9 @@ object Sorteio {
 
     fun limparListaDeTimeVendidos(){
         this.clientes.clear()
+    }
+
+    fun getNomeTime( id : Int ) : String {
+        return listadetimes.get(id)
     }
 }

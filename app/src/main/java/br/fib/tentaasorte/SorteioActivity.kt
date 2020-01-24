@@ -1,5 +1,6 @@
 package br.fib.tentaasorte
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -19,12 +20,26 @@ class SorteioActivity : AppCompatActivity() {
         txtNumerosVendidos.setText( Sorteio.NumerosVendidos().toString() )
 
         btnSortear.setOnClickListener{
-            var index = Random.nextInt(0 , Sorteio.NumerosVendidos())
 
-            val cliente = Sorteio.getCliente( index )
+            if (Sorteio.NumerosVendidos() > 0) {
 
-            txtTimeSorteado.setText( cliente?.getTime() )
-            txtNomeDoGanhador.setText(cliente?.getNome())
+                var index = Random.nextInt(0, Sorteio.getQtdeDeTime())
+
+
+                if ((index + 1) > Sorteio.NumerosVendidos())
+                {
+                    txtTimeSorteado.setText( Sorteio.getNomeTime(index) )
+                    txtNomeDoGanhador.setText("Não houve Ganhador")
+                    txtNomeDoGanhador.setTextColor( Color.RED )
+                }
+                else {
+                    val cliente = Sorteio.getCliente(index)
+
+                    txtTimeSorteado.setText(cliente?.getTime())
+                    txtNomeDoGanhador.setText(cliente?.getNome())
+                    txtNomeDoGanhador.setTextColor( Color.BLUE )
+                }
+            }
         }
 
         btnLimparLista.setOnClickListener{
