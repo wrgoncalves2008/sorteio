@@ -59,14 +59,14 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnvender"
+                    android:id="@+id/btnActivityVendas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Vender" />
 
                 <Button
-                    android:id="@+id/btnsortear"
+                    android:id="@+id/btnActivitySorteio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

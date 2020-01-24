@@ -12,26 +12,14 @@ class VendaActivity : AppCompatActivity() {
     var timeselecionado: String = ""
     var timesDisponiveis = ArrayList<String>()
 
-    var listadetimes = arrayOf("Flamengo","Santos","Palmeiras","Grêmio","Athletico-PR","São Paulo","Internacional","Corinthians",
-        "Fortaleza","Goiás","Bahia","Vasco","Atlético-MG","Fluminense","Botafogo","Ceará","Cruzeiro",
-        "CSA","Chapecoense","Avaí")
 
-    fun verificarTimesDisponiveis() {
-
-        for (time in listadetimes){
-            if ( !Sorteio.timeJaSelecionado( time ) )
-            {
-                timesDisponiveis.add(time)
-            }
-        }
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_venda)
 
-        verificarTimesDisponiveis()
+        timesDisponiveis = Sorteio.verificarTimesDisponiveis()
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, timesDisponiveis)
         lsttimes.adapter = adapter

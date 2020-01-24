@@ -2,18 +2,40 @@ package br.fib.tentaasorte
 
 object Sorteio {
 
-    val clientes: ArrayList<Cliente>
+    var listadetimes = arrayOf("Flamengo","Santos","Palmeiras","Grêmio","Athletico-PR","São Paulo","Internacional","Corinthians",
+        "Fortaleza","Goiás","Bahia","Vasco","Atlético-MG","Fluminense","Botafogo","Ceará","Cruzeiro",
+        "CSA","Chapecoense","Avaí")
+
+    private val clientes: ArrayList<Cliente>
 
     init {
-        clientes = ArrayList<Cliente>()
+        this.clientes = ArrayList<Cliente>()
+    }
+
+    fun getQtdeDeTime(): Int {
+        return listadetimes.size
+    }
+
+    fun verificarTimesDisponiveis(): ArrayList<String> {
+
+        var times = ArrayList<String>()
+
+        for (time in listadetimes){
+            if ( !timeJaSelecionado( time ) )
+            {
+                times.add(time)
+            }
+        }
+
+        return times
     }
 
     fun ListarClientes(): ArrayList<Cliente> {
-        return clientes
+        return this.clientes
     }
 
     fun NumerosVendidos(): Int {
-        return clientes.size
+        return this.clientes.size
     }
 
     fun getCliente(id: Int): Cliente? {
@@ -21,7 +43,7 @@ object Sorteio {
     }
 
     fun registrarVenda(nome: String, time: String) {
-        clientes.add( Cliente( nome, time ))
+        this.clientes.add( Cliente( nome, time ))
     }
 
     fun timeJaSelecionado( time: String ): Boolean {
@@ -36,9 +58,13 @@ object Sorteio {
         val arr = ArrayList<String>()
 
         for (i in this.clientes.indices){
-            arr.add( clientes.get(i).getTime() )
+            arr.add( this.clientes.get(i).getTime() )
         }
 
         return arr
+    }
+
+    fun limparListaDeTimeVendidos(){
+        this.clientes.clear()
     }
 }
