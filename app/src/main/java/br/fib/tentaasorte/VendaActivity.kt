@@ -5,21 +5,21 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import br.fib.tentaasorte.database.models.Times
+import br.fib.tentaasorte.database.models.Vendas
+import br.fib.tentaasorte.database.repository.TimesRepository
+import br.fib.tentaasorte.database.repository.VendasRepository
 import kotlinx.android.synthetic.main.activity_venda.*
 
 class VendaActivity : AppCompatActivity() {
 
     var timeselecionado: String = ""
-    var timesDisponiveis = ArrayList<String>()
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_venda)
 
-        timesDisponiveis = Sorteio.verificarTimesDisponiveis()
+        val timesDisponiveis = TimesRepository(this).listarTimesDisponiveis()
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, timesDisponiveis)
         lsttimes.adapter = adapter
@@ -28,7 +28,7 @@ class VendaActivity : AppCompatActivity() {
         txtTimeSelecionado.setText("Time Selecionado: Nenhum")
 
         lsttimes.setOnItemClickListener { _, _, position, _ ->
-            timeselecionado = timesDisponiveis.get(position)
+            timeselecionado = timesDisponiveis.get(position).nome
             txtTimeSelecionado.setText("Time Selecionado: " + timeselecionado)
         }
 
@@ -42,9 +42,12 @@ class VendaActivity : AppCompatActivity() {
             }
             else
             {
-                Sorteio.registrarVenda( txtNomeCliente.text.toString() , timeselecionado )
-                Toast.makeText( this, "Venda registrada para o cliente " + txtNomeCliente.text.toString() + ", time escolhido foi " + timeselecionado, Toast.LENGTH_SHORT ).show()
+                val venda = Vendas( time =  timeselecionado,
+                                    cliente = txtNomeCliente.text.toString() )
 
+                VendasRepository(this).create( venda )
+
+                Toast.makeText( this, "Venda registrada para o cliente " + txtNomeCliente.text.toString() + ", time escolhido foi " + timeselecionado, Toast.LENGTH_SHORT ).show()
                 finish()
             }
         }

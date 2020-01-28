@@ -46,11 +46,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txttimeselecionado"
+                android:id="@+id/txtQtdeVendida"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Time Selecionado:" />
+                android:gravity="center"
+                android:text="Qtde Vendida: 0000" />
 
             <LinearLayout
                 android:layout_width="match_parent"
